@@ -11,14 +11,14 @@ public class JSONMap {
         GraphMap GraphMap = new GraphMap();
         JSONArray stations = new JSONArray();
 
-        for (int i = 0; i < GraphMap.stationAmount; i++){
+        for (int i = 0; i < GraphMap.getStationAmount(); i++){
             JSONObject JSONLineObject = new JSONObject(); //создание объекта для заглавной станции
 
             JSONLineObject.put("stationName",GraphMap.getStationNames(i)); //добавление полей в этот объект
             JSONLineObject.put("isWasHere", map[i][0].isWasHere());
 
             JSONArray connections = new JSONArray(); //создание вектора для хранения списка станций, в которые можно переместиться с заглавной
-            for (int j = 0; i < GraphMap.stationAmount; j++){
+            for (int j = 0; i < GraphMap.getStationAmount(); j++){
                 if (map[i][j].getDistance() > 0){
                     JSONObject JSONStationObject = new JSONObject(); //создание обекта станции, на которую можно переместиться с заглавной
                     JSONStationObject.put("stationName",GraphMap.getStationNames(j)); //добавление полей в этот объект
