@@ -1,4 +1,5 @@
-public class stationChain {
+public class StationChain {
+    private String stationName;
     private boolean wasHere;
     private int distance;
 
@@ -7,6 +8,12 @@ public class stationChain {
     }
     public int getDistance(){
         return distance;
+    }
+    public String getStationName(){
+        return stationName;
+    }
+    public void setStationName(String stationName){
+        this.stationName = stationName;
     }
 
     public void setWasHere(boolean wasHere){

@@ -3,7 +3,7 @@ import java.io.IOException;
 
 public class GraphMap {
     private int stationAmount = 12;
-    private stationChain[][] map = new stationChain[stationAmount][stationAmount];
+    private StationChain[][] map = new StationChain[stationAmount][stationAmount];
 
     protected String[] stationNames = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M" , "N" , "O" , "P" , "Q" , "R" , "S" , "T" , "U" , "V" , "W" , "X" , "Y" , "Z"};
     public void setMap(BufferedReader mapObj) throws IOException {
@@ -15,8 +15,8 @@ public class GraphMap {
             tempLineArray = tempLine.split(" ");
             for (int j = 0; j < stationAmount; j++) {
 
-                map[i][j] = new stationChain();
-                map[j][i] = new stationChain();
+                map[i][j] = new StationChain();
+                map[j][i] = new StationChain();
 
                 if (tempLineArray[j].equals(".")) {
                     map[i][j].setDistance(-1);
@@ -40,7 +40,7 @@ public class GraphMap {
             }
         }
     }
-    public stationChain[][] getMap(){
+    public StationChain[][] getMap(){
         return map;
     }
 
