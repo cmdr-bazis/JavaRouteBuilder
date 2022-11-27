@@ -1,12 +1,12 @@
 public class StationChain {
     private String stationName;
     private boolean wasHere;
-    private int distance;
+    private long distance;
 
     public boolean isWasHere(){
         return wasHere;
     }
-    public int getDistance(){
+    public long getDistance(){
         return distance;
     }
     public String getStationName(){
@@ -19,10 +19,13 @@ public class StationChain {
     public void setWasHere(boolean wasHere){
         this.wasHere = wasHere;
     }
-    public void setDistance(int distance) {
+    public void setDistance(long distance) {
         this.distance = distance;
     }
     public String getStringDistance(){
-        return Integer.toString(this.distance);
+        return Integer.toString((int) this.distance);
+    }
+    public String getStation(){
+        return "Station: " + this.getStationName() + ", Distance to it: " + this.getDistance() + ", Was Here: " + this.isWasHere() + "; ";
     }
 }

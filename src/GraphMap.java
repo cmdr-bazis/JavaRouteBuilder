@@ -32,13 +32,14 @@ public class GraphMap {
             }
         }
     }
-    public void getStringMap(){
+    public void getConsoleMap(){
         for (int i = 0; i < stationAmount; i++){
             System.out.println("\n");
             for (int j = 0; j < stationAmount; j++){
                 System.out.print(map[i][j].getDistance() + " ");
             }
         }
+        System.out.print("\n");
     }
     public StationChain[][] getMap(){
         return map;

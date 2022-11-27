@@ -38,36 +38,44 @@ public class JSONMap {
         JSONmap.put("stations", stations); //добавление вектора всех станций в поле общего объекта
         Files.write(Paths.get("JSONMap.json"), JSONmap.toString().getBytes());
     }
-    public static Object readJsonSimpleDemo() throws Exception {
+    private static Object readJsonSimple() throws Exception {
         FileReader reader = new FileReader("JSONMap.json");
         JSONParser jsonParser = new JSONParser();
         return jsonParser.parse(reader);
     }
-    public void getJSON() throws Exception {
+    public AdjListMap parseJSON() throws Exception {
         GraphMap GraphMap = new GraphMap();
-        JSONObject JSONFileObject = (JSONObject) readJsonSimpleDemo();
-        LinkedList<MainStation> stations = new LinkedList<MainStation>();
-        for (int i = 0; i < GraphMap.getStationAmount();i++){
 
+        JSONObject JSONMapFileObject = (JSONObject) readJsonSimple();
+        AdjListMap AdjListMap = new AdjListMap();
+
+        JSONArray JSONMainStationsArray = (JSONArray) JSONMapFileObject.get("stations");
+        LinkedList<MainStation> mainStations = new LinkedList<>();
+        for (int i = 0; i < JSONMainStationsArray.size(); i++){
             MainStation MainStation = new MainStation();
+            JSONObject JSONMainStationObject = (JSONObject) JSONMainStationsArray.get(i);
 
-            MainStation.setWasHere((boolean) JSONFileObject.get("mainStationWasHere"));
-            MainStation.setStationName((String) JSONFileObject.get("mainStationName"));
+            MainStation.setStationName((String) JSONMainStationObject.get("mainStationName"));
+            MainStation.setWasHere((Boolean) JSONMainStationObject.get("mainStationWasHere"));
 
-            LinkedList<StationChain> connections = new LinkedList<>();
-            for (int j = 0; j < GraphMap.getStationAmount(); j++){
+            JSONArray JSONStationChainArray = (JSONArray) JSONMainStationObject.get("connections");
+            LinkedList<StationChain> stations = new LinkedList<>();
+            for (int j = 0; j < JSONStationChainArray.size(); j++){
+                JSONObject JSONStationObject = (JSONObject) JSONStationChainArray.get(j);
                 StationChain StationChain = new StationChain();
 
-                StationChain.setStationName((String) JSONFileObject.get("stationName"));
-                StationChain.setDistance((int) JSONFileObject.get("distance"));
-                StationChain.setWasHere((boolean) JSONFileObject.get("wasHere"));
+                StationChain.setDistance((long) JSONStationObject.get("distance"));
+                StationChain.setStationName((String) JSONStationObject.get("stationName"));
+                StationChain.setWasHere((boolean) JSONStationObject.get("wasHere"));
 
-                connections.add(StationChain);
+                stations.add(StationChain);
             }
-            MainStation.setConnections(connections);
-            stations.add(MainStation);
+            MainStation.setConnections(stations);
+            mainStations.add(MainStation);
         }
-        AdjListMap AdjListMap = new AdjListMap();
-        AdjListMap.setStations(stations);
+        AdjListMap.setStations(mainStations);
+
+        return AdjListMap;
     }
+
 }

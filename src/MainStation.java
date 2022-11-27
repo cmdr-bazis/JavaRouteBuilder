@@ -14,6 +14,13 @@ public class MainStation {
     public void setWasHere(boolean wasHere){
         this.wasHere = wasHere;
     }
+    public void getConsoleStations(){
+        System.out.print("Main Station Name: " + this.stationName + "; Was Here: " + this.wasHere + "; \n Connections list: ");
+        for (int i = 0; i < connections.size(); i++){
+            System.out.print(connections.get(i).getStation());
+        }
+        System.out.print("\n \n");
+    }
 
 
 }
