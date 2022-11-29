@@ -3,7 +3,7 @@ import java.io.IOException;
 
 public class GraphMap {
     private int stationAmount = 12;
-    private StationChain[][] map = new StationChain[stationAmount][stationAmount];
+    private StationNode[][] map = new StationNode[stationAmount][stationAmount];
 
     protected String[] stationNames = {"A" , "B" , "C" , "D" , "E" , "F" , "G" , "H" , "I" , "J" , "K" , "L" , "M" , "N" , "O" , "P" , "Q" , "R" , "S" , "T" , "U" , "V" , "W" , "X" , "Y" , "Z"};
     public void setMap(BufferedReader mapObj) throws IOException {
@@ -15,8 +15,8 @@ public class GraphMap {
             tempLineArray = tempLine.split(" ");
             for (int j = 0; j < stationAmount; j++) {
 
-                map[i][j] = new StationChain();
-                map[j][i] = new StationChain();
+                map[i][j] = new StationNode();
+                map[j][i] = new StationNode();
 
                 if (tempLineArray[j].equals(".")) {
                     map[i][j].setDistance(-1);
@@ -25,7 +25,7 @@ public class GraphMap {
                     map[i][j].setDistance(0);
                 }
                 else {
-                    Integer convertedDistance = Integer.valueOf(tempLineArray[j]);
+                    int convertedDistance = Integer.parseInt(tempLineArray[j]);
                     map[i][j].setDistance(convertedDistance);
                     map[j][i].setDistance(convertedDistance);
                 }
@@ -41,7 +41,7 @@ public class GraphMap {
         }
         System.out.print("\n");
     }
-    public StationChain[][] getMap(){
+    public StationNode[][] getMap(){
         return map;
     }
 

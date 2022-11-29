@@ -7,8 +7,8 @@ public class AdjListMap {
         this.stations = stations;
     }
     public void getConsoleMap(){
-        for (int i = 0; i < stations.size(); i++){
-            stations.get(i).getConsoleStations();
+        for (MainStation station : stations) {
+            station.getConsoleStations();
         }
     }
 }

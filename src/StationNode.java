@@ -1,4 +1,4 @@
-public class StationChain {
+public class StationNode {
     private String stationName;
     private boolean wasHere;
     private long distance;

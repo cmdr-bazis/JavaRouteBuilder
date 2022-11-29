@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 
 public class JSONMap {
-    public void setJSON(StationChain[][] map) throws IOException {
+    public void setJSON(StationNode[][] map) throws IOException {
         JSONObject JSONmap = new JSONObject();
         GraphMap GraphMap = new GraphMap();
         JSONArray stations = new JSONArray();
@@ -44,31 +44,29 @@ public class JSONMap {
         return jsonParser.parse(reader);
     }
     public AdjListMap parseJSON() throws Exception {
-        GraphMap GraphMap = new GraphMap();
-
         JSONObject JSONMapFileObject = (JSONObject) readJsonSimple();
         AdjListMap AdjListMap = new AdjListMap();
 
         JSONArray JSONMainStationsArray = (JSONArray) JSONMapFileObject.get("stations");
         LinkedList<MainStation> mainStations = new LinkedList<>();
-        for (int i = 0; i < JSONMainStationsArray.size(); i++){
+        for (Object value : JSONMainStationsArray) {
             MainStation MainStation = new MainStation();
-            JSONObject JSONMainStationObject = (JSONObject) JSONMainStationsArray.get(i);
+            JSONObject JSONMainStationObject = (JSONObject) value;
 
             MainStation.setStationName((String) JSONMainStationObject.get("mainStationName"));
             MainStation.setWasHere((Boolean) JSONMainStationObject.get("mainStationWasHere"));
 
             JSONArray JSONStationChainArray = (JSONArray) JSONMainStationObject.get("connections");
-            LinkedList<StationChain> stations = new LinkedList<>();
-            for (int j = 0; j < JSONStationChainArray.size(); j++){
-                JSONObject JSONStationObject = (JSONObject) JSONStationChainArray.get(j);
-                StationChain StationChain = new StationChain();
+            LinkedList<StationNode> stations = new LinkedList<>();
+            for (Object o : JSONStationChainArray) {
+                JSONObject JSONStationObject = (JSONObject) o;
+                StationNode StationNode = new StationNode();
 
-                StationChain.setDistance((long) JSONStationObject.get("distance"));
-                StationChain.setStationName((String) JSONStationObject.get("stationName"));
-                StationChain.setWasHere((boolean) JSONStationObject.get("wasHere"));
+                StationNode.setDistance((long) JSONStationObject.get("distance"));
+                StationNode.setStationName((String) JSONStationObject.get("stationName"));
+                StationNode.setWasHere((boolean) JSONStationObject.get("wasHere"));
 
-                stations.add(StationChain);
+                stations.add(StationNode);
             }
             MainStation.setConnections(stations);
             mainStations.add(MainStation);
@@ -77,5 +75,4 @@ public class JSONMap {
 
         return AdjListMap;
     }
-
 }

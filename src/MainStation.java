@@ -3,12 +3,12 @@ import java.util.LinkedList;
 public class MainStation {
     private String stationName;
     private boolean wasHere;
-    private LinkedList<StationChain> connections;
+    private LinkedList<StationNode> connections;
 
     public void setStationName(String stationName){
         this.stationName = stationName;
     }
-    public void setConnections(LinkedList<StationChain> connections){
+    public void setConnections(LinkedList<StationNode> connections){
         this.connections = connections;
     }
     public void setWasHere(boolean wasHere){
@@ -16,8 +16,8 @@ public class MainStation {
     }
     public void getConsoleStations(){
         System.out.print("Main Station Name: " + this.stationName + "; Was Here: " + this.wasHere + "; \n Connections list: ");
-        for (int i = 0; i < connections.size(); i++){
-            System.out.print(connections.get(i).getStation());
+        for (StationNode connection : connections) {
+            System.out.print(connection.getStation());
         }
         System.out.print("\n \n");
     }
